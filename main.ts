@@ -154,15 +154,16 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     tiles.placeOnRandomTile(Enemigo3, myTiles.tile7)
     info.changeLifeBy(-1)
 })
+let projectile: Sprite = null
 let Premio_1: Sprite = null
 let Projectil: Sprite = null
 let direccion = 0
-let moneda: Sprite = null
 let Prima_Nº1: Sprite = null
+let moneda: Sprite = null
 let Enemigo3: Sprite = null
 let Enemigo2: Sprite = null
 let enemigo: Sprite = null
-game.splash("Ayudame", "A encontrar a mi prima")
+game.splash("Help me", "")
 Nivel_1()
 scene.setBackgroundImage(img`
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
@@ -359,113 +360,55 @@ Enemigo3 = sprites.create(img`
     . . f b b b b b b c f . . . . . 
     . . . f f f f f f f . . . . . . 
     `, SpriteKind.Enemy)
-let microfono = sprites.create(img`
-    1 1 1 1 1 b b b b b b 1 1 1 1 1 
-    1 1 1 1 b b b b b b b b 1 1 1 1 
-    1 1 1 b b b b b b b b b b 1 1 1 
-    1 1 1 b b b b b b b b b b 1 1 1 
-    1 1 1 d d d d d d d d d d 1 1 1 
-    1 1 1 b b b b b b b b b b 1 1 1 
-    1 1 1 b b b b b b b b b b 1 1 1 
-    1 1 1 1 b b b b b b b b 1 1 1 1 
-    1 1 1 1 1 d d d d d d 1 1 1 1 1 
-    1 1 1 1 1 1 b b b b 1 1 1 1 1 1 
-    1 1 1 1 1 1 f d d f 1 1 1 1 1 1 
-    1 1 1 1 1 1 f d d f 1 1 1 1 1 1 
-    1 1 1 1 1 1 f d d f 1 1 1 1 1 1 
-    1 1 1 1 1 1 f d d f 1 1 1 1 1 1 
-    1 1 1 1 1 1 f d d f 1 1 1 1 1 1 
-    1 1 1 1 1 1 f d d f 1 1 1 1 1 1 
-    1 1 1 1 1 1 f d d f 1 1 1 1 1 1 
-    1 1 1 1 1 1 f d d f 1 1 1 1 1 1 
-    1 1 1 1 1 1 f f f f 1 1 1 1 1 1 
+moneda = sprites.create(img`
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
     `, SpriteKind.Food)
-let balon = sprites.create(img`
-    . . . . . . . 4 4 f 4 4 . . . . . . . 
-    . . . . . 4 4 4 4 f 4 4 4 4 . . . . . 
-    . . . . 4 4 4 4 4 f 4 4 4 4 4 . . . . 
-    . . . 4 f 4 4 4 4 f 4 4 4 4 f 4 . . . 
-    . . 4 4 4 f 4 4 4 f 4 4 4 f 4 4 4 . . 
-    . . 4 4 4 4 f 4 4 f 4 4 f 4 4 4 4 . . 
-    . 4 4 4 4 4 f 4 4 f 4 4 f 4 4 4 4 4 . 
-    . 4 4 4 4 4 f 4 4 f 4 4 f 4 4 4 4 4 . 
-    . f f f f f f f f f f f f f f f f f . 
-    . 4 4 4 4 4 f 4 4 f 4 4 f 4 4 4 4 4 . 
-    . 4 4 4 4 4 f 4 4 f 4 4 f 4 4 4 4 4 . 
-    . . 4 4 4 4 f 4 4 f 4 4 f 4 4 4 4 . . 
-    . . 4 4 4 f 4 4 4 f 4 4 4 f 4 4 4 . . 
-    . . . 4 f 4 4 4 4 f 4 4 4 4 f 4 . . . 
-    . . . . 4 4 4 4 4 f 4 4 4 4 4 . . . . 
-    . . . . . 4 4 4 4 f 4 4 4 4 . . . . . 
-    . . . . . . . 4 4 f 4 4 . . . . . . . 
-    . . . . . . . . . . . . . . . . . . . 
+moneda = sprites.create(img`
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
     `, SpriteKind.Food)
-let bate = sprites.create(img`
-    . . . . . . . . . . . . . . . . . . 4 4 . . 
-    . . . . . . . . . . . . . . . . . 4 d d 4 . 
-    . . . . . . . . . . . . . . . . 4 d d 4 4 2 
-    . . . . . . . . . . . . . . . 4 d d 4 4 2 4 
-    . . . . . . . . . . . . . . 4 d d 4 4 2 4 . 
-    . . . . . . . . . . . . . 4 d d 4 4 2 4 . . 
-    . . . . . . . . . . . . 4 d d 4 4 2 4 . . . 
-    . . . . . . . . . . . 4 d d 4 4 2 4 . . . . 
-    . . . . . . . . . . 4 d d 4 4 2 4 . . . . . 
-    . . . . . . . . . 4 d d 4 4 2 4 . . . . . . 
-    . . . . . . . . . 4 d 4 4 2 4 . . . . . . . 
-    . . . . . . . . . 4 4 4 2 4 . . . . . . . . 
-    . . . . . . . . 6 6 6 2 4 . . . . . . . . . 
-    . . . . . . . 9 9 9 . . . . . . . . . . . . 
-    . . . . . . 6 6 6 . . . . . . . . . . . . . 
-    . . . . . 9 9 9 . . . . . . . . . . . . . . 
-    . . . . 6 6 6 . . . . . . . . . . . . . . . 
-    . . . 4 4 2 . . . . . . . . . . . . . . . . 
-    . 4 4 4 2 . . . . . . . . . . . . . . . . . 
-    . . 4 2 . . . . . . . . . . . . . . . . . . 
-    . . . 2 . . . . . . . . . . . . . . . . . . 
+moneda = sprites.create(img`
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
     `, SpriteKind.Food)
-let lapiz = sprites.create(img`
-    . . . . . . . . . . . . . f . . . . . . 
-    . . . . . . . . . . . . f 3 f . . . . . 
-    . . . . . . . . . . . f 3 3 3 f . . . . 
-    . . . . . . . . . . f 1 b 3 3 3 f . . . 
-    . . . . . . . . . f 5 f 1 b 3 3 3 f . . 
-    . . . . . . . . f d 5 5 f 1 b 3 3 3 f . 
-    . . . . . . . f d 5 5 5 5 f 1 b 3 3 3 f 
-    . . . . . . f 5 5 5 5 5 5 5 f 1 b 3 f . 
-    . . . . . f 5 5 5 5 5 5 5 5 5 f 1 f . . 
-    . . . . f 5 5 5 5 5 5 5 5 5 5 d f . . . 
-    . . . f d 5 5 5 5 5 5 5 5 5 d f . . . . 
-    . . f d 5 5 5 5 5 5 5 5 5 5 f . . . . . 
-    . f d 5 5 5 5 5 5 5 f 5 d f . . . . . . 
-    f 4 4 5 5 5 5 5 5 f 5 d f . . . . . . . 
-    f 4 4 4 5 5 5 5 f 5 d f . . . . . . . . 
-    f f 4 4 4 5 5 f 5 d f . . . . . . . . . 
-    f f f 4 4 4 5 5 d f . . . . . . . . . . 
-    f f f f 4 4 4 5 f . . . . . . . . . . . 
-    f f f f f 4 4 f . . . . . . . . . . . . 
-    f f f f f f f . . . . . . . . . . . . . 
+moneda = sprites.create(img`
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
     `, SpriteKind.Food)
-let paleta_de_pintura = sprites.create(img`
-    . . . . . . . . . . . . e e e e e e e e . . . . . . . . . . 
-    . . . . . . . . . . e e e e e e e e e e e e e . . . . . . . 
-    . . . . . . . . . e e e d d d d d d d d e e e e e . . . . . 
-    . . . . . . . e e e e d d a a d d d d d d d e e e e . . . . 
-    . . . . . . e e e e d d a a a d d d d 5 5 d d d e e . . . . 
-    . . . . . e e e e d d d a a d d d d 5 5 5 d d d d e e . . . 
-    . . . . e e e e d 3 3 d d d d d d d 5 5 d d d d d e e . . . 
-    . . . e e e e d 3 3 3 d d d d d d d d d d d d d d e e . . . 
-    . . . e e e d d 3 3 d d d d d d d 4 4 d d d d d e e e . . . 
-    . . e e e d d d d d d d d d d d 4 4 4 d d d e e e e . . . . 
-    . . e e e d d d 9 9 d d d d d d 4 4 d d e e e e e . . . . . 
-    . . e e e d d 9 9 9 d d d d d d d d d e e e e . . . . . . . 
-    . . e e e e d 9 9 d d d d d d d d d d e . . . . . . . . . . 
-    . . . e e e e d d d d 2 2 d d 7 7 d d e e e . . . . . . . . 
-    . . . . e e e e d d 2 2 2 d 7 7 7 d d d e e e . . . . . . . 
-    . . . . e e e e e d 2 2 d d 7 7 d d d d d e e e . . . . . . 
-    . . . . . e e e e e d d d d d d d d d d d e e e . . . . . . 
-    . . . . . . e e e e e d d d d d d d d d e e e . . . . . . . 
-    . . . . . . . . e e e e e e e e e e e e e e . . . . . . . . 
-    . . . . . . . . . . . e e e e e e e e e . . . . . . . . . . 
+moneda = sprites.create(img`
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
     `, SpriteKind.Food)
 let Caminar = 100
 Prima_Nº1 = sprites.create(img`
@@ -651,6 +594,30 @@ info.setScore(0)
 Prima_Nº1.setPosition(10, 40)
 prima2.setPosition(775, 85)
 music.powerUp.play()
+game.onUpdate(function () {
+    if (Math.percentChance(6)) {
+        projectile = sprites.createProjectileFromSide(img`
+            . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+            . . 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+            . 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . 
+            . 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . 
+            . . 1 1 1 1 1 1 1 1 . . . . . . . . . 1 1 1 . . . . . . . . . . 
+            . . 1 1 1 1 1 1 1 . . . . . . . . 1 1 1 1 1 1 1 1 . . . . . . . 
+            . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 1 1 1 . . . . . . 
+            . . . . . . 1 1 1 . . . . . . . . 1 1 1 1 1 1 1 1 1 . . . . . . 
+            . . . . . 1 1 1 1 1 1 1 . . . . . . 1 1 1 1 1 1 1 1 1 . . . . . 
+            . . 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . 1 . . . . . . . . . . . 
+            . . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . 
+            . . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . 
+            . . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . 
+            . . . . . . . . . 1 1 . . . . . . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+            . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
+            `, 50, 0)
+        projectile.setPosition(-33, 31)
+        projectile.setFlag(SpriteFlag.Ghost, true)
+    }
+})
 game.onUpdate(function () {
     if (Prima_Nº1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava1)) {
         info.changeLifeBy(-3)
