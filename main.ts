@@ -224,7 +224,7 @@ scene.setBackgroundImage(img`
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
     9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 9 
     `)
-let premio = sprites.create(img`
+let prima2 = sprites.create(img`
     . . . . f f f f f f . . . . . . 
     . . . f 2 f e e e e f f . . . . 
     . . f 2 2 2 f e e e e f f . . . 
@@ -297,14 +297,54 @@ Enemigo3 = sprites.create(img`
     . . . f f f f f f f . . . . . . 
     `, SpriteKind.Enemy)
 moneda = sprites.create(img`
-    . . b b b b . . 
-    . b 5 5 5 5 b . 
-    b 5 d 3 3 d 5 b 
-    b 5 3 5 5 1 5 b 
-    c 5 3 5 5 1 d c 
-    c d d 1 1 d d c 
-    . f d d d d f . 
-    . . f f f f . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    `, SpriteKind.Food)
+moneda = sprites.create(img`
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    `, SpriteKind.Food)
+moneda = sprites.create(img`
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    `, SpriteKind.Food)
+moneda = sprites.create(img`
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    `, SpriteKind.Food)
+moneda = sprites.create(img`
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
+    . . . . . . . . 
     `, SpriteKind.Food)
 let Caminar = 100
 Prima_Nº1 = sprites.create(img`
@@ -488,7 +528,7 @@ info.startCountdown(30)
 info.setLife(3)
 info.setScore(0)
 Prima_Nº1.setPosition(10, 40)
-premio.setPosition(775, 85)
+prima2.setPosition(775, 85)
 music.powerUp.play()
 game.onUpdate(function () {
     if (Prima_Nº1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava1)) {
