@@ -77,7 +77,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Premio_Final, function (sprite, 
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Food, function (sprite, otherSprite) {
     music.baDing.play()
-    tiles.placeOnRandomTile(moneda, myTiles.tile8)
+    tiles.placeOnRandomTile(balon, myTiles.tile8)
     info.changeScoreBy(1)
 })
 sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, otherSprite) {
@@ -97,7 +97,7 @@ let projectile: Sprite = null
 let Projectil: Sprite = null
 let direccion = 0
 let Prima_Nº1: Sprite = null
-let moneda: Sprite = null
+let balon: Sprite = null
 let Enemigo3: Sprite = null
 let Enemigo2: Sprite = null
 let enemigo: Sprite = null
@@ -296,7 +296,25 @@ Enemigo3 = sprites.create(img`
     . . f b b b b b b c f . . . . . 
     . . . f f f f f f f . . . . . . 
     `, SpriteKind.Enemy)
-moneda = sprites.create(img`
+let microfono = sprites.create(img`
+    1 1 1 1 1 1 1 1 1 b 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 b 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 b 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 b 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 b 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+    `, SpriteKind.Food)
+balon = sprites.create(img`
     . . . . . . . . 
     . . . . . . . . 
     . . . . . . . . 
@@ -306,7 +324,7 @@ moneda = sprites.create(img`
     . . . . . . . . 
     . . . . . . . . 
     `, SpriteKind.Food)
-moneda = sprites.create(img`
+let bate = sprites.create(img`
     . . . . . . . . 
     . . . . . . . . 
     . . . . . . . . 
@@ -316,7 +334,7 @@ moneda = sprites.create(img`
     . . . . . . . . 
     . . . . . . . . 
     `, SpriteKind.Food)
-moneda = sprites.create(img`
+let paleta_de_pintura = sprites.create(img`
     . . . . . . . . 
     . . . . . . . . 
     . . . . . . . . 
@@ -326,17 +344,7 @@ moneda = sprites.create(img`
     . . . . . . . . 
     . . . . . . . . 
     `, SpriteKind.Food)
-moneda = sprites.create(img`
-    . . . . . . . . 
-    . . . . . . . . 
-    . . . . . . . . 
-    . . . . . . . . 
-    . . . . . . . . 
-    . . . . . . . . 
-    . . . . . . . . 
-    . . . . . . . . 
-    `, SpriteKind.Food)
-moneda = sprites.create(img`
+let lapiz = sprites.create(img`
     . . . . . . . . 
     . . . . . . . . 
     . . . . . . . . 
@@ -523,7 +531,7 @@ Enemigo3.setFlag(SpriteFlag.DestroyOnWall, true)
 tiles.placeOnRandomTile(enemigo, myTiles.tile7)
 tiles.placeOnRandomTile(Enemigo2, myTiles.tile7)
 tiles.placeOnRandomTile(Enemigo3, myTiles.tile7)
-tiles.placeOnRandomTile(moneda, myTiles.tile8)
+tiles.placeOnRandomTile(balon, myTiles.tile8)
 info.startCountdown(30)
 info.setLife(3)
 info.setScore(0)
