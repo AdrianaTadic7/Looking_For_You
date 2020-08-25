@@ -498,7 +498,7 @@ game.onUpdate(function () {
     }
 })
 game.onUpdate(function () {
-    if (Math.percentChance(4)) {
+    if (Math.percentChance(3)) {
         projectile = sprites.createProjectileFromSide(img`
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -532,7 +532,7 @@ game.onUpdate(function () {
             . 1 1 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . 
             . . . 1 1 1 1 1 1 1 1 1 1 . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
-            `, randint(20, 60), 0)
+            `, randint(30, 60), 0)
         projectile.setPosition(20, 46)
         projectile.setFlag(SpriteFlag.Ghost, true)
     }
