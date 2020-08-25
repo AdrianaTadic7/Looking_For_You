@@ -70,7 +70,7 @@ function Nivel_1 () {
         . . . . . . . . . . . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, [myTiles.transparency16], TileScale.Sixteen))
-    Premio = sprites.create(img`
+    Premio_1 = sprites.create(img`
         . . . . . . . . . . . . . . . . 
         . . . . . . 4 4 4 4 . . . . . . 
         . . . . 4 4 4 5 5 4 4 4 . . . . 
@@ -88,7 +88,7 @@ function Nivel_1 () {
         . . . . . . 4 4 4 4 . . . . . . 
         . . . . . . . . . . . . . . . . 
         `, SpriteKind.Player)
-    tiles.placeOnRandomTile(Premio, myTiles.transparency16)
+    tiles.placeOnRandomTile(Premio_1, myTiles.transparency16)
     game.splash("Nivel 1")
 }
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
@@ -134,7 +134,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     info.changeLifeBy(-1)
 })
 let projectile: Sprite = null
-let Premio: Sprite = null
+let Premio_1: Sprite = null
 let Projectil: Sprite = null
 let direccion = 0
 let Prima_Nº1: Sprite = null
