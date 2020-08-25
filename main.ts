@@ -9,6 +9,7 @@ enum ActionKind {
 namespace SpriteKind {
     export const Premio_Final = SpriteKind.create()
     export const PrimaNº1 = SpriteKind.create()
+    export const PREMIO1 = SpriteKind.create()
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (direccion == 1) {
@@ -103,10 +104,13 @@ function Nivel_1 () {
         . . . . 4 4 2 2 2 2 4 4 . . . . 
         . . . . . . 4 4 4 4 . . . . . . 
         . . . . . . . . . . . . . . . . 
-        `, SpriteKind.Player)
+        `, SpriteKind.PREMIO1)
     tiles.placeOnRandomTile(Premio_1, myTiles.transparency16)
     game.splash("Nivel 1")
 }
+sprites.onOverlap(SpriteKind.Player, SpriteKind.PREMIO1, function (sprite, otherSprite) {
+    otherSprite.destroy()
+})
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
     if (Prima_Nº1.isHittingTile(CollisionDirection.Bottom)) {
         Prima_Nº1.vy = -150
