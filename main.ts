@@ -1,5 +1,14 @@
+enum ActionKind {
+    Walking,
+    Idle,
+    Jumping,
+    Derecha,
+    Izquierda,
+    Parada
+}
 namespace SpriteKind {
     export const Premio_Final = SpriteKind.create()
+    export const PrimaNº1 = SpriteKind.create()
 }
 controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
     if (direccion == 1) {
@@ -20,7 +29,7 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            `, personaje1, 200, 0)
+            `, Prima_Nº1, 200, 0)
     } else {
         Projectil = sprites.createProjectileFromSprite(img`
             . . . . . . . . . . . . . . . . 
@@ -39,33 +48,19 @@ controller.B.onEvent(ControllerButtonEvent.Pressed, function () {
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
             . . . . . . . . . . . . . . . . 
-            `, personaje1, -200, 0)
+            `, Prima_Nº1, -200, 0)
     }
 })
 controller.A.onEvent(ControllerButtonEvent.Pressed, function () {
-    if (personaje1.isHittingTile(CollisionDirection.Bottom)) {
-        personaje1.vy = -150
+    if (Prima_Nº1.isHittingTile(CollisionDirection.Bottom)) {
+        Prima_Nº1.vy = -150
     }
 })
+controller.anyButton.onEvent(ControllerButtonEvent.Released, function () {
+    animation.setAction(Prima_Nº1, ActionKind.Parada)
+})
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
-    personaje1.setImage(img`
-        . . . . f f f f f . f f f . 
-        . . . f f c c c c f f f f f 
-        . . f c c c c c c b f f f f 
-        . . f c c c c c c 3 c f f f 
-        . f c c c c c c c c 3 3 f . 
-        . f c c 4 c c c c c f f f . 
-        . f f e 4 4 c c c f f f f . 
-        . f f e 4 4 f b f 4 4 f f . 
-        . . f f d d f 1 4 d 4 f . . 
-        . . . f d d d d 4 f f f . . 
-        . . . f e 4 4 4 e e f . . . 
-        . . . f 3 3 3 e d d 4 . . . 
-        . . . f 3 3 3 e d d e . . . 
-        . . . f 6 6 6 f e e f . . . 
-        . . . . f f f f f f . . . . 
-        . . . . . . f f f . . . . . 
-        `)
+    animation.setAction(Prima_Nº1, ActionKind.Izquierda)
     direccion = 0
 })
 info.onCountdownEnd(function () {
@@ -73,24 +68,7 @@ info.onCountdownEnd(function () {
     music.wawawawaa.play()
 })
 controller.right.onEvent(ControllerButtonEvent.Pressed, function () {
-    personaje1.setImage(img`
-        . f f f . f f f f f . . . . 
-        f f f f f c c c c f f . . . 
-        f f f f b c c c c c c f . . 
-        f f f c 3 c c c c c c f . . 
-        . f 3 3 c c c c c c c c f . 
-        . f f f c c c c c 4 c c f . 
-        . f f f f c c c 4 4 e f f . 
-        . f f 4 4 f b f 4 4 e f f . 
-        . . f 4 d 4 1 f d d f f . . 
-        . . f f f 4 d d d d f . . . 
-        . . . f e e 4 4 4 e f . . . 
-        . . . 4 d d e 3 3 3 f . . . 
-        . . . e d d e 3 3 3 f . . . 
-        . . . f e e f 6 6 6 f . . . 
-        . . . . f f f f f f . . . . 
-        . . . . . f f f . . . . . . 
-        `)
+    animation.setAction(Prima_Nº1, ActionKind.Derecha)
     direccion = 1
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Premio_Final, function (sprite, otherSprite) {
@@ -109,7 +87,7 @@ sprites.onOverlap(SpriteKind.Projectile, SpriteKind.Enemy, function (sprite, oth
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     otherSprite.destroy()
     music.wawawawaa.play()
-    personaje1.setPosition(10, 0)
+    Prima_Nº1.setPosition(10, 0)
     tiles.placeOnRandomTile(enemigo, myTiles.tile7)
     tiles.placeOnRandomTile(Enemigo2, myTiles.tile7)
     tiles.placeOnRandomTile(Enemigo3, myTiles.tile7)
@@ -117,7 +95,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
 })
 let Projectil: Sprite = null
 let direccion = 0
-let personaje1: Sprite = null
+let Prima_Nº1: Sprite = null
 let moneda: Sprite = null
 let Enemigo3: Sprite = null
 let Enemigo2: Sprite = null
@@ -327,7 +305,48 @@ moneda = sprites.create(img`
     . f d d d d f . 
     . . f f f f . . 
     `, SpriteKind.Food)
-personaje1 = sprites.create(img`
+let Caminar = 100
+Prima_Nº1 = sprites.create(img`
+    . f f f . f f f f . f f f . 
+    f f f f f c c c c f f f f f 
+    f f f f b c c c c b f f f f 
+    f f f c 3 c c c c 3 c f f f 
+    . f 3 3 c c c c c c 3 3 f . 
+    . f c c c c 4 4 c c c c f . 
+    . f f c c 4 4 4 4 c c f f . 
+    . f f f b f 4 4 f b f f f . 
+    . f f 4 1 f d d f 1 4 f f . 
+    . . f f d d d d d d f f . . 
+    . . e f e 4 4 4 4 e f e . . 
+    . e 4 f b 3 3 3 3 b f 4 e . 
+    . 4 d f 3 3 3 3 3 3 c d 4 . 
+    . 4 4 f 6 6 6 6 6 6 f 4 4 . 
+    . . . . f f f f f f . . . . 
+    . . . . f f . . f f . . . . 
+    `, SpriteKind.Player)
+controller.moveSprite(Prima_Nº1, 100, 0)
+let Derecha = animation.createAnimation(ActionKind.Derecha, Caminar)
+let Izquierda = animation.createAnimation(ActionKind.Izquierda, Caminar)
+let Parada = animation.createAnimation(ActionKind.Parada, Caminar)
+Parada.addAnimationFrame(img`
+    . f f f . f f f f . f f f . 
+    f f f f f c c c c f f f f f 
+    f f f f b c c c c b f f f f 
+    f f f c 3 c c c c 3 c f f f 
+    . f 3 3 c c c c c c 3 3 f . 
+    . f c c c c 4 4 c c c c f . 
+    . f f c c 4 4 4 4 c c f f . 
+    . f f f b f 4 4 f b f f f . 
+    . f f 4 1 f d d f 1 4 f f . 
+    . . f f d d d d d d f f . . 
+    . . e f e 4 4 4 4 e f e . . 
+    . e 4 f b 3 3 3 3 b f 4 e . 
+    . 4 d f 3 3 3 3 3 3 c d 4 . 
+    . 4 4 f 6 6 6 6 6 6 f 4 4 . 
+    . . . . f f f f f f . . . . 
+    . . . . f f . . f f . . . . 
+    `)
+Derecha.addAnimationFrame(img`
     . f f f . f f f f f . . . . 
     f f f f f c c c c f f . . . 
     f f f f b c c c c c c f . . 
@@ -344,8 +363,100 @@ personaje1 = sprites.create(img`
     . . . f e e f 6 6 6 f . . . 
     . . . . f f f f f f . . . . 
     . . . . . f f f . . . . . . 
-    `, SpriteKind.Player)
-controller.moveSprite(personaje1, 100, 0)
+    `)
+Derecha.addAnimationFrame(img`
+    . . . . . . . . . . . . . . 
+    . f f f . f f f f f . . . . 
+    f f f f f c c c c f f . . . 
+    f f f f b c c c c c c f . . 
+    f f f c 3 c c c c c c f . . 
+    . f 3 3 c c c c c c c c f . 
+    . f f f c c c c c 4 c c f . 
+    . f f f f c c c 4 4 c f f . 
+    . f f 4 4 f b f 4 4 f f f . 
+    . . f 4 d 4 1 f d d f f . . 
+    . . f f f e e d d d f . . . 
+    . . . f 4 d d e 4 e f . . . 
+    . . . f e d d e 3 3 f . . . 
+    . . f f f e e f 6 6 f f . . 
+    . . f f f f f f f f f f . . 
+    . . . f f . . . f f f . . . 
+    `)
+Derecha.addAnimationFrame(img`
+    . . . . . . . . . . . . . . 
+    . f f f . f f f f f . . . . 
+    f f f f f c c c c f f . . . 
+    f f f f b c c c c c c f . . 
+    f f f c 3 c c c c c c f . . 
+    . f 3 3 c c c c c c c c f . 
+    . f f f c c c c c 4 c c f . 
+    . f f f f c c c 4 4 c f f . 
+    . f f 4 4 f b f 4 4 f f f . 
+    . f f 4 d 4 1 f d d c f . . 
+    . . f f f 4 d d d d f . . . 
+    . . 4 d d e 4 4 4 e f . . . 
+    . . e d d e 3 3 3 3 f . . . 
+    . . f e e f 6 6 6 6 f f . . 
+    . . f f f f f f f f f f . . 
+    . . . f f . . . f f f . . . 
+    `)
+Izquierda.addAnimationFrame(img`
+    . . . . f f f f f . f f f . 
+    . . . f f c c c c f f f f f 
+    . . f c c c c c c b f f f f 
+    . . f c c c c c c 3 c f f f 
+    . f c c c c c c c c 3 3 f . 
+    . f c c 4 c c c c c f f f . 
+    . f f e 4 4 c c c f f f f . 
+    . f f e 4 4 f b f 4 4 f f . 
+    . . f f d d f 1 4 d 4 f . . 
+    . . . f d d d d 4 f f f . . 
+    . . . f e 4 4 4 e e f . . . 
+    . . . f 3 3 3 e d d 4 . . . 
+    . . . f 3 3 3 e d d e . . . 
+    . . . f 6 6 6 f e e f . . . 
+    . . . . f f f f f f . . . . 
+    . . . . . . f f f . . . . . 
+    `)
+Izquierda.addAnimationFrame(img`
+    . . . . . . . . . . . . . . 
+    . . . . f f f f f . f f f . 
+    . . . f f c c c c f f f f f 
+    . . f c c c c c c b f f f f 
+    . . f c c c c c c 3 c f f f 
+    . f c c c c c c c c 3 3 f . 
+    . f c c 4 c c c c c f f f . 
+    . f f c 4 4 c c c f f f f . 
+    . f f f 4 4 f b f 4 4 f f . 
+    . . f f d d f 1 4 d 4 f . . 
+    . . . f d d d e e f f f . . 
+    . . . f e 4 e d d 4 f . . . 
+    . . . f 3 3 e d d e f . . . 
+    . . f f 6 6 f e e f f f . . 
+    . . f f f f f f f f f f . . 
+    . . . f f f . . . f f . . . 
+    `)
+Izquierda.addAnimationFrame(img`
+    . . . . . . . . . . . . . . 
+    . . . . f f f f f . f f f . 
+    . . . f f c c c c f f f f f 
+    . . f c c c c c c b f f f f 
+    . . f c c c c c c 3 c f f f 
+    . f c c c c c c c c 3 3 f . 
+    . f c c 4 c c c c c f f f . 
+    . f f c 4 4 c c c f f f f . 
+    . f f f 4 4 f b f 4 4 f f . 
+    . . f c d d f 1 4 d 4 f f . 
+    . . . f d d d d 4 f f f . . 
+    . . . f e 4 4 4 e d d 4 . . 
+    . . . f 3 3 3 3 e d d e . . 
+    . . f f 6 6 6 6 f e e f . . 
+    . . f f f f f f f f f f . . 
+    . . . f f f . . . f f . . . 
+    `)
+animation.attachAnimation(Prima_Nº1, Izquierda)
+animation.attachAnimation(Prima_Nº1, Derecha)
+animation.attachAnimation(Prima_Nº1, Parada)
 tiles.setTilemap(tiles.createTilemap(hex`32000c00020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202050404050202050202050204040404040402020504040404050202050502020505050404040202020202010101010101020201010101020201020201020101010101010202010101010101020201010202010101010101010101010102020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020202020303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303030303`, img`
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
@@ -360,8 +471,8 @@ tiles.setTilemap(tiles.createTilemap(hex`32000c000202020202020202020202020202020
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 
     `, [myTiles.transparency16,sprites.builtin.forestTiles0,myTiles.tile1,sprites.dungeon.hazardLava1,myTiles.tile7,myTiles.tile8], TileScale.Sixteen))
-scene.cameraFollowSprite(personaje1)
-personaje1.ay = 300
+scene.cameraFollowSprite(Prima_Nº1)
+Prima_Nº1.ay = 300
 enemigo.vy = 60
 Enemigo2.vy = 60
 Enemigo3.vy = 60
@@ -375,11 +486,11 @@ tiles.placeOnRandomTile(moneda, myTiles.tile8)
 info.startCountdown(30)
 info.setLife(3)
 info.setScore(0)
-personaje1.setPosition(10, 40)
+Prima_Nº1.setPosition(10, 40)
 premio.setPosition(775, 85)
 music.powerUp.play()
 game.onUpdate(function () {
-    if (personaje1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava1)) {
+    if (Prima_Nº1.tileKindAt(TileDirection.Bottom, sprites.dungeon.hazardLava1)) {
         info.changeLifeBy(-3)
         game.over(false)
         music.wawawawaa.play()
